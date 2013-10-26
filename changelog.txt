@@ -1,0 +1,9 @@
+0.1.1
+	Added Locales
+0.1.2
+	Fixed an issue with info.json
+	Also changed the structure of the folder (I hadn't planned to expect this initially)
+	Added pollution
+	Added Larger Dynamite :)
+	Added Quantum TNT (no pollution but expensive)
+	Added Quantum DNA Bomb - Very expensive research that unlocks a bomb with a large AOE that only affects the enemy, not perfected (if player is caught in range he will be teleported to a random area)
