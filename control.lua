@@ -1,6 +1,6 @@
 require "util"
 require "defines"
-
+-- todo incoporate quantum
 game.oninit(function()
   glob.dynamite = {}
   glob.resources = {}
@@ -11,11 +11,14 @@ game.oninit(function()
       table.insert(glob.resources, resource)
     end
   end
-  if not glob.dynamite.release and game.player.character then game.player.character.insert{name="dynamite", count=10} end
+  if not glob.dynamite.release and game.player.character then
+    game.player.character.insert{name="dynamite", count=10}
+    game.player.character.insert{name="dynamite-bundle", count=10}
+  end
 end)
 
 game.onevent(defines.events.onbuiltentity, function(event)
-  if event.createdentity.name == "dynamite" then
+  if (event.createdentity.name == "dynamite") or (event.createdentity.name == "dynamite-bundle") then
     glob.dynamite[#glob.dynamite+1] = {entity=event.createdentity, tick=event.tick}
     game.player.print("You placed dynamite! RUN? :)")
   end
@@ -23,17 +26,26 @@ end)
 
 game.onevent(defines.events.ontick, function(event)
   for _, dynamite in ipairs(glob.dynamite) do
-    if (event.tick - dynamite.tick > 120) and dynamite.entity.valid then dynamite.entity.die() end
+    if dynamite.entity.name == "dynamite" then 
+      if (event.tick - dynamite.tick > 120) and dynamite.entity.valid then dynamite.entity.die() end
+    elseif dynamite.entity.name == "dynamite-bundle" then
+      if (event.tick - dynamite.tick > 300) and dynamite.entity.valid then dynamite.entity.die() end
+    end
   end
 end)
 
 game.onevent(defines.events.onentitydied, function(event)
-  if event.entity.name == "dynamite" then
+  if (event.entity.name == "dynamite") or (event.entity.name == "dynamite-bundle") then
+    local area --area that will be clear/damaged by explosion
+    if event.entity.name == "dynamite" then area=1
+    elseif event.entity.name == "dynamite-bundle" then area=5
+    end
+    
     for k,v in ipairs(glob.dynamite) do
       if event.entity.equals(v.entity) then table.remove(glob.dynamite,k) end
     end
     
-    for _, resource in ipairs(game.findentities{{event.entity.position.x-1, event.entity.position.y-1},{event.entity.position.x+1,event.entity.position.y+1}}) do
+    for _, resource in ipairs(game.findentities{{event.entity.position.x-area, event.entity.position.y-area},{event.entity.position.x+area,event.entity.position.y+area}}) do
       for i, reslist in ipairs(glob.resources) do 
         if resource.name == reslist.name then
           reslist.count = reslist.count+resource.amount
@@ -50,14 +62,14 @@ game.onevent(defines.events.onentitydied, function(event)
       resources.count = 0
     end
     
-    for _, nearbyentity in ipairs(game.findentities{{event.entity.position.x-3, event.entity.position.y-3}, {event.entity.position.x+3, event.entity.position.y+3}}) do
-        if nearbyentity.name == "dynamite" then
+    for _, nearbyentity in ipairs(game.findentities{{event.entity.position.x-area*3, event.entity.position.y-area*3}, {event.entity.position.x+area*3, event.entity.position.y+area*3}}) do
+        if (nearbyentity.name == "dynamite") or (nearbyentity.name == "dynamite-bundle") then
           for i,v in ipairs(glob.dynamite) do
             if nearbyentity.equals(v.entity) then
               glob.dynamite[i].tick = glob.dynamite[i].tick-60
             end
           end
-        elseif nearbyentity.health then nearbyentity.damage(20, game.player.force)
+        elseif nearbyentity.health then nearbyentity.damage(50*area/util.distance(event.entity.position, nearbyentity.position), game.player.force)
         end
     end
   end
