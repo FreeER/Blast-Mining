@@ -45,12 +45,12 @@ data:extend({
         time = 15
       },
     upgrade = "true",
-  }
+  },
   {
     type = "technology",
     name = "blast-mining-3",
     icon = "__blast-mining__/graphics/technology/quantum-explosion.png",
-    prerequisites = {"blast-mining"},
+    prerequisites = {"blast-mining-2"},
     effects =
       {
         {
@@ -60,12 +60,12 @@ data:extend({
       },
     unit =
       {
-        count = 400,
+        count = 200,
         ingredients =
           {
-            {"science-pack-1", 1},
-            {"science-pack-2", 1},
-            {"science-pack-3", 1},
+            {"science-pack-1", 2},
+            {"science-pack-2", 2},
+            {"science-pack-3", 2},
             {"alien-science-pack", 1}
           },
         time = 30

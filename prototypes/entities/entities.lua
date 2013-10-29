@@ -42,7 +42,7 @@ data:extend({
     name = "quantum-tnt",
     dying_explosion = "quantum-explosion",
     minable = {hardness = 0.2, mining_time = 0.5, result = "dynamite-bundle"},
-    icon = "__blast-mining__/graphics/icons/dynamite-bundle-icon.png",
+    icon = "__blast-mining__/graphics/icons/quantum-tnt.png",
     flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
     max_health = 30,
     emissions_per_tick = 100,
@@ -51,9 +51,9 @@ data:extend({
     inventory_size = 0,
     picture =
     {
-      filename = "__blast-mining__/graphics/entities/dynamite-bundle.png",
-      width = 31,
-      height = 50
+      filename = "__blast-mining__/graphics/entities/quantum-tnt.png",
+      width = 50,
+      height = 46
     }
   },
   {
@@ -71,8 +71,8 @@ data:extend({
     picture =
     {
       filename = "__blast-mining__/graphics/entities/quantum-bomb.png",
-      width = 31,
-      height = 50
+      width = 50,
+      height = 46
     }
   },
   

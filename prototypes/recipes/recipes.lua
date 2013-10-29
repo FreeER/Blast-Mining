@@ -21,7 +21,7 @@ data:extend({
       type = "recipe",
       name = "quantum-tnt",
       energy_required = 10,
-      ingredients = {{"dynamite", 10}, {"copper-cable", 10}},
+      ingredients = {{"dynamite", 10}, {"alien-artifact", 10}}, --this probably needs to be far more expensive...
       result = "quantum-tnt",
       enabled = "false",
       result_count = 1

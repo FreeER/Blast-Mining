@@ -21,7 +21,7 @@ data:extend(
   {
       type = "item",
       name = "quantum-tnt",
-      place_result = "dynamite-bundle",
+      place_result = "quantum-tnt",
       icon = "__blast-mining__/graphics/icons/quantum-bomb.png",
       flags = {"goes-to-quickbar"},
       order = "a-a",
@@ -30,7 +30,7 @@ data:extend(
   {
       type = "item",
       name = "quantum-dna-bomb",
-      place_result = "dynamite-bundle",
+      place_result = "quantum-dna-bomb",
       icon = "__blast-mining__/graphics/icons/quantum-bomb.png",
       flags = {"goes-to-quickbar"},
       order = "a-a",
