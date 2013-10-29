@@ -3,5 +3,6 @@
 	"author":"FreeER",
 	"version":"0.1.2",
 	"title":"Blast Mining",
-	"description":"This mod adds the ability to blast mine resources."
+	"description":"This mod adds the ability to blast mine resources.",
+    "dependencies": ["base >= 0.7.4"]
 }

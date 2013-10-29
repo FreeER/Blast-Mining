@@ -1,3 +1,14 @@
+function resources()
+  local recipe={}
+  for _, item in pairs (data.raw.resource) do 
+    table.insert(recipe, {item.name, 1})
+  end
+  table.insert(recipe, {"dynamite-bundle", 1})
+  table.insert(recipe, {"steel-plate", 10})
+  table.insert(recipe, {"alien-artifact", 10})
+  return recipe
+end
+
 data:extend({
   {
       type = "recipe",
@@ -21,7 +32,8 @@ data:extend({
       type = "recipe",
       name = "quantum-tnt",
       energy_required = 10,
-      ingredients = {{"dynamite", 10}, {"alien-artifact", 10}}, --this probably needs to be far more expensive...
+      ingredients = resources(),
+      --ingredients = {{"dynamite-bundle", 1}, {"steel", 10}, {"alien-artifact", 10}}, --this probably needs to be far more expensive...
       result = "quantum-tnt",
       enabled = "false",
       result_count = 1

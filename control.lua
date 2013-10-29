@@ -1,6 +1,6 @@
 require "util"
 require "defines"
--- todo incoporate quantum
+
 game.oninit(function()
   glob.dynamite = {}
   glob.resources = {}
@@ -65,7 +65,7 @@ game.onevent(defines.events.onentitydied, function(event)
     
     for _, resources in ipairs(glob.resources) do
       if resources.count > 0 then
-        game.createentity{name="item-on-ground", position = {event.entity.position.x, event.entity.position.y}, stack={name=resources.name, count=math.random(resources.count)-math.random(resources.count/area)}}
+        game.createentity{name="item-on-ground", position = {event.entity.position.x, event.entity.position.y}, stack={name=resources.name, count=resources.count-math.random(resources.count/area)}}
       end
       resources.count = 0
     end
@@ -79,7 +79,7 @@ game.onevent(defines.events.onentitydied, function(event)
   end-- end quantum dna bomb code
 end) -- end onentitydied
 
-function causedamage(entity, area, force, destroy)
+function causedamage(entity, area, targetforce, destroy)
   if destroy == nil then destroy = false end --make destroy false if not given in call
   for _, nearbyentity in ipairs(game.findentities{{entity.position.x-area*3, entity.position.y-area*3}, {entity.position.x+area*3, entity.position.y+area*3}}) do
     if (nearbyentity.name == "dynamite") or (nearbyentity.name == "dynamite-bundle") or (nearbyentity.name == "quantum-tnt") or (nearbyentity.name == "quantum-dna-bomb") then
@@ -88,14 +88,14 @@ function causedamage(entity, area, force, destroy)
           glob.dynamite[index].tick = glob.dynamite[index].tick-60
         end
       end
-    elseif force~=nil then
+    elseif targetforce~=nil then
       if nearbyentity.force.equals(force) then
         if nearbyentity.health then
           nearbyentity.die()
         else nearbyentity.destroy()
         end
       end
-    elseif nearbyentity.health then nearbyentity.damage(50*area/util.distance(entity.position, nearbyentity.position), game.player.force)
+    elseif nearbyentity.health then nearbyentity.damage((50*area/util.distance(entity.position, nearbyentity.position)), game.player.force)
     else
       if destroy then nearbyentity.destroy() end
     end
