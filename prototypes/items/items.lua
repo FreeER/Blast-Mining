@@ -22,7 +22,7 @@ data:extend(
       type = "item",
       name = "quantum-tnt",
       place_result = "quantum-tnt",
-      icon = "__blast-mining__/graphics/icons/quantum-bomb.png",
+      icon = "__blast-mining__/graphics/icons/quantum-tnt.png",
       flags = {"goes-to-quickbar"},
       order = "a-a",
       stack_size = 10
