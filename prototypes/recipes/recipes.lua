@@ -66,7 +66,7 @@ if data.raw.recipe["computer"] == nil then
         energy_required = 10,
         ingredients = {{"iron-plate", 27}, {"iron-gear-wheel", 27}, {"copper-cable", 100}, {"small-lamp", 1}}, --Up dna to 20 maybe?
         result = "computer",
-        enabled = "true",
+        enabled = "false",
         result_count = 1
     }
   })
