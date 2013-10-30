@@ -4,6 +4,8 @@ require "defines"
 game.oninit(function()
   glob.dynamite = {}
   glob.resources = {}
+  glob.dna = {}
+  glob.dna.test = "something"
   glob.dynamite.release = false -- boolean used for easily testing mod during developement, false gives free items oninit and possibly debug statements
   for k, entity in pairs(game.entityprototypes) do
     if entity.type == "resource" then
@@ -16,6 +18,8 @@ game.oninit(function()
     game.player.character.insert{name="dynamite-bundle", count=10}
     game.player.character.insert{name="quantum-tnt", count=10}
     game.player.character.insert{name="quantum-dna-bomb", count=10}
+    game.player.character.insert{name="dna-collector", count=10}
+    game.player.character.insert{name="dna", count=10}
   end
 end)
 
@@ -23,6 +27,9 @@ game.onevent(defines.events.onbuiltentity, function(event)
   if (event.createdentity.name == "dynamite") or (event.createdentity.name == "dynamite-bundle") or (event.createdentity.name == "quantum-tnt") or (event.createdentity.name == "quantum-dna-bomb") then
     glob.dynamite[#glob.dynamite+1] = {entity=event.createdentity, tick=event.tick}
     if not glob.dynamite.release then game.player.print("You placed dynamite! RUN? :)") end
+  end
+  if (event.createdentity.name == "dna-collector") then
+    table.insert(glob.dna, event.createdentity)
   end
 end)
 
@@ -36,6 +43,25 @@ game.onevent(defines.events.ontick, function(event)
       end
     elseif dynamite.entity.valid then
         game.createentity{name="flying-text", text="tick", position=dynamite.entity.position}
+    end
+  end
+  
+  if (event.tick%300 == 1) and glob.dna[1] then --do once every 5 seconds
+    for index, dna in ipairs(glob.dna) do
+      if not dna.valid then
+        table.remove(glob.dna, index)
+      else
+        for _, corpse in pairs(game.findentitiesfiltered{area={getboundingbox(dna.position, 1)}, type="corpse"}) do
+          if (corpse.name:sub(-8) ~= "remnants") then
+            if corpse.name:sub(-14) == "spawner-corpse" then
+              dna.insert{name="dna", count=10}
+            else
+              dna.insert{name="dna", count=1}
+            end
+            break
+          end
+        end
+      end
     end
   end
 end)
@@ -53,7 +79,7 @@ game.onevent(defines.events.onentitydied, function(event)
       if dynamite.entity.equals(event.entity) then table.remove(glob.dynamite,index) end
     end
     
-    for _, resource in ipairs(game.findentities{{event.entity.position.x-area, event.entity.position.y-area},{event.entity.position.x+area,event.entity.position.y+area}}) do
+    for _, resource in ipairs(game.findentities{getboundingbox(event.entity.position, area)}) do
       for i, reslist in ipairs(glob.resources) do 
         if resource.name == reslist.name then
           reslist.count = reslist.count+resource.amount
@@ -65,7 +91,7 @@ game.onevent(defines.events.onentitydied, function(event)
     
     for _, resources in ipairs(glob.resources) do
       if resources.count > 0 then
-        game.createentity{name="item-on-ground", position = {event.entity.position.x, event.entity.position.y}, stack={name=resources.name, count=resources.count-math.random(resources.count/area)}}
+        game.createentity{name="item-on-ground", position = event.entity.position, stack={name=resources.name, count=resources.count-math.random(resources.count/area)}}
       end
       resources.count = 0
     end
@@ -81,7 +107,7 @@ end) -- end onentitydied
 
 function causedamage(entity, area, targetforce, destroy)
   if destroy == nil then destroy = false end --make destroy false if not given in call
-  for _, nearbyentity in ipairs(game.findentities{{entity.position.x-area*3, entity.position.y-area*3}, {entity.position.x+area*3, entity.position.y+area*3}}) do
+  for _, nearbyentity in ipairs(game.findentities{getboundingbox(entity.position, area*3)}) do
     if (nearbyentity.name == "dynamite") or (nearbyentity.name == "dynamite-bundle") or (nearbyentity.name == "quantum-tnt") or (nearbyentity.name == "quantum-dna-bomb") then
       for index, dynamite in ipairs(glob.dynamite) do
         if dynamite.entity.equals(nearbyentity) then
@@ -89,7 +115,7 @@ function causedamage(entity, area, targetforce, destroy)
         end
       end
     elseif targetforce~=nil then
-      if nearbyentity.force.equals(force) then
+      if nearbyentity.force.equals(targetforce) then
         if nearbyentity.health then
           nearbyentity.die()
         else nearbyentity.destroy()
@@ -100,4 +126,9 @@ function causedamage(entity, area, targetforce, destroy)
       if destroy then nearbyentity.destroy() end
     end
   end
+end
+
+
+function getboundingbox(position, radius)
+return {position.x-radius, position.y-radius}, {position.x+radius,position.y+radius}
 end

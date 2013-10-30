@@ -35,5 +35,22 @@ data:extend(
       flags = {"goes-to-quickbar"},
       order = "a-a",
       stack_size = 10
+  },
+  {
+      type = "item",
+      name = "dna-collector",
+      place_result = "dna-collector",
+      icon = "__blast-mining__/graphics/icons/dna-collector.png",
+      flags = {"goes-to-quickbar"},
+      order = "a-a",
+      stack_size = 10
+  },
+  {
+      type = "item",
+      name = "dna",
+      icon = "__blast-mining__/graphics/icons/dna.png",
+      flags = {"goes-to-quickbar"},
+      order = "a-a",
+      stack_size = 100
   }
 })
