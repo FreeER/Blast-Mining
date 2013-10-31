@@ -5,8 +5,7 @@ game.oninit(function()
   glob.dynamite = {}
   glob.resources = {}
   glob.dna = {}
-  glob.dna.test = "something"
-  glob.dynamite.release = false -- boolean used for easily testing mod during developement, false gives free items oninit and possibly debug statements
+  glob.dynamite.release = true -- boolean used for easily testing mod during developement, false gives free items oninit and possibly debug statements
   for k, entity in pairs(game.entityprototypes) do
     if entity.type == "resource" then
       local resource = {name=entity.name, count=0}
