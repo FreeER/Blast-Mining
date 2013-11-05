@@ -113,7 +113,7 @@ function causedamage(entity, area, targetforce, destroy)
           glob.dynamite[index].tick = glob.dynamite[index].tick-60
         end
       end
-    elseif targetforce~=nil then --used with quantum dna bomb to destroy all enemy force entities and to teleport player, should probably do this elsewhere but...
+    elseif targetforce~=nil then --used with quantum dna bomb to destroy all enemy force entities and to teleport player, should probably do the teleporting elsewhere but...
       if nearbyentity.equals(game.player.character) then --teleport player +-32 in both x and y coords
         local position
         repeat
