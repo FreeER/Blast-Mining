@@ -50,7 +50,7 @@ data:extend({
     type = "technology",
     name = "blast-mining-3",
     icon = "__blast-mining__/graphics/technology/quantum-explosion.png",
-    prerequisites = {"blast-mining-2"},
+    prerequisites = {"blast-mining-2", "steel-processing"},
     effects =
       {
         {
@@ -76,7 +76,7 @@ data:extend({
     type = "technology",
     name = "blast-mining-4",
     icon = "__blast-mining__/graphics/technology/dna.png",
-    prerequisites = {"blast-mining-3"},
+    prerequisites = {"blast-mining-3", "optics"},
     effects =
       {
         {
@@ -102,7 +102,7 @@ data:extend({
             {"science-pack-3", 2},
             {"alien-science-pack", 2}
           },
-        time = 30
+        time = 60
       },
     upgrade = "true",
   }
