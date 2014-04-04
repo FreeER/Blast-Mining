@@ -8,7 +8,7 @@ data:extend({
       {
         {
           type = "unlock-recipe",
-          recipe = "dynamite"
+          recipe = "BMdynamite"
         }
       },
     unit =
@@ -31,7 +31,7 @@ data:extend({
       {
         {
           type = "unlock-recipe",
-          recipe = "dynamite-bundle"
+          recipe = "BMdynamite-bundle"
         }
       },
     unit =
@@ -72,24 +72,20 @@ data:extend({
       },
     upgrade = "true",
   },
-  {
+})
+
+if data.raw.item["dna"] then
+  data:extend({
+    {
     type = "technology",
     name = "blast-mining-4",
     icon = "__blast-mining__/graphics/technology/dna.png",
-    prerequisites = {"blast-mining-3", "optics"},
+    prerequisites = {"blast-mining-3", "dna"},
     effects =
       {
         {
           type = "unlock-recipe",
           recipe = "quantum-dna-bomb"
-        },
-        {
-          type = "unlock-recipe",
-          recipe = "computer"
-        },
-        {
-          type = "unlock-recipe",
-          recipe = "dna-collector"
         }
       },
     unit =
@@ -106,4 +102,5 @@ data:extend({
       },
     upgrade = "true",
   }
-})
+  })
+end

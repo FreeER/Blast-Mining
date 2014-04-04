@@ -1,9 +1,9 @@
 data:extend({
   {
     type = "container",
-    name = "dynamite",
+    name = "BMdynamite",
     dying_explosion = "low-huge-explosion",
-    minable = {hardness = 0.2, mining_time = 0.5, result = "dynamite"},
+    minable = {hardness = 0.2, mining_time = 0.5, result = "BMdynamite"},
     icon = "__blast-mining__/graphics/icons/dynamite-icon.png",
     flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
     max_health = 5,
@@ -20,9 +20,9 @@ data:extend({
   },
   {
     type = "container",
-    name = "dynamite-bundle",
+    name = "BMdynamite-bundle",
     dying_explosion = "low-huge-explosion",
-    minable = {hardness = 0.2, mining_time = 0.5, result = "dynamite-bundle"},
+    minable = {hardness = 0.2, mining_time = 0.5, result = "BMdynamite-bundle"},
     icon = "__blast-mining__/graphics/icons/dynamite-bundle-icon.png",
     flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
     max_health = 30,
@@ -53,41 +53,6 @@ data:extend({
       filename = "__blast-mining__/graphics/entities/quantum-tnt.png",
       width = 50,
       height = 46
-    }
-  },
-  {
-    type = "container",
-    name = "quantum-dna-bomb",
-    dying_explosion = "quantum-explosion",
-    minable = {hardness = 0.2, mining_time = 0.5, result = "quantum-dna-bomb"},
-    icon = "__blast-mining__/graphics/icons/quantum-bomb.png",
-    flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
-    max_health = 30,
-    collision_box = {{-0.2, -0.2}, {0.2, 0.2}},
-    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
-    inventory_size = 0,
-    picture =
-    {
-      filename = "__blast-mining__/graphics/entities/quantum-bomb.png",
-      width = 50,
-      height = 46
-    }
-  },
-  {
-    type = "container",
-    name = "dna-collector",
-    minable = {hardness = 0.2, mining_time = 0.5, result = "dna-collector"},
-    icon = "__blast-mining__/graphics/entities/dna-collector.png",
-    flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
-    max_health = 5,
-    collision_box = {{-1.25, -1.5}, {1.25, 1.5}},
-    selection_box = {{-1.3, -1.6}, {1.3, 1.6}},
-    inventory_size = 1,
-    picture =
-    {
-      filename = "__blast-mining__/graphics/entities/dna-collector.png",
-      width = 80,
-      height = 94
     }
   },
   

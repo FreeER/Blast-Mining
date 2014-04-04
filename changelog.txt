@@ -7,3 +7,6 @@
 	Added Bundled Dynamite :)
 	Added Quantum TNT (no pollution but expensive)
 	Added Quantum DNA Bomb - a bomb with a large AOE that only affects the enemy, not perfected (if player is caught in range he will be teleported to a randomly)
+
+0.1.3
+	Separated DNA into separate mod
