@@ -1,8 +1,8 @@
 {
 	"name":"blast-mining",
 	"author":"FreeER",
-	"version":"0.1.3",
+	"version":"0.1.4",
 	"title":"Blast Mining",
 	"description":"This mod adds the ability to blast mine resources.",
-    "dependencies": ["base >= 0.7.4", "? Industrio >= 0.3.2", "? dna"]
+    "dependencies": ["base >= 0.10.0", "? Industrio >= 0.3.2", "? dna"]
 }

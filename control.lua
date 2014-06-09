@@ -5,13 +5,7 @@ game.oninit(function()
   glob.dynamite = {}
   glob.resources = {}
   glob.dna = {}
-  glob.release = true -- boolean used for easily testing mod during developement, false gives free items oninit and debug statements
-  for k, entity in pairs(game.entityprototypes) do
-    if entity.type == "resource" then
-      local resource = {name=entity.name, count=0}
-      table.insert(glob.resources, resource)
-    end
-  end
+  glob.release = false -- boolean used for easily testing mod during developement, false gives free items oninit and debug statements
   if not glob.release and game.player.character then
     game.player.character.insert{name="BMdynamite", count=10}
     game.player.character.insert{name="BMdynamite-bundle", count=10}
@@ -20,10 +14,20 @@ game.oninit(function()
   end
 end)
 
+game.onload(function()
+  glob.resources = {}
+  for k, entity in pairs(game.entityprototypes) do
+    if entity.type == "resource" and game.itemprototypes[entity.name] and game.itemprototypes[entity.name].type ~= "fluid" then
+      local resource = {name=game.itemprototypes[entity.name].name, count=0}
+      table.insert(glob.resources, resource)
+    end
+  end
+end)
+
 game.onevent(defines.events.onbuiltentity, function(event)
   if (event.createdentity.name == "BMdynamite") or (event.createdentity.name == "BMdynamite-bundle") or (event.createdentity.name == "quantum-tnt") or (event.createdentity.name == "quantum-dna-bomb") then
     glob.dynamite[#glob.dynamite+1] = {entity=event.createdentity, tick=event.tick}
-    if not glob.release then game.player.print("You placed dynamite! RUN? :)") end
+    writeDebug("You placed dynamite! RUN? :)")
   end
 end)
 
@@ -66,7 +70,8 @@ game.onevent(defines.events.onentitydied, function(event)
     
     for _, resources in ipairs(glob.resources) do
       if resources.count > 0 then
-        game.createentity{name="item-on-ground", position = event.entity.position, stack={name=resources.name, count=resources.count-math.random(resources.count/area)}}
+        local stack = {name=resources.name, count=resources.count-math.random(resources.count/area)}
+        game.createentity{name="item-on-ground", position = event.entity.position, stack=stack}
       end
       resources.count = 0
     end
@@ -107,15 +112,30 @@ function causedamage(entity, area, targetforce, destroy)
   end
 end
 
+function randomTeleport(entity, distance)
+  local position = nil
+  local maxrep = 10
+  repeat
+    position = game.findnoncollidingposition(entity.name, entity.position, distance, 1)
+    maxrep = maxrep - 1
+  until (position ~= nil or maxrep == 0)
+  entity.teleport(position)
+end
+
 function getboundingbox(position, radius)
 return {position.x-radius, position.y-radius}, {position.x+radius,position.y+radius}
 end
 
-function randomTeleport(entity, distance)
-  local position = entity.position
-  repeat
-    position.x=position.x+math.random(-distance, distance)
-    position.y=position.y+math.random(-distance, distance)
-  until (game.canplaceentity{name=entity.name, position=position})
-  entity.teleport(position)
+function writeDebug(message, conditions)
+  local conditionsMet = true
+  if conditions then
+    if type(conditions) == "boolean" then
+      conditionsMet = conditions
+    elseif type(conditions) == "table" then
+      for _, condition in pairs(conditions) do
+        if type(condition) == "boolean" and not condition then conditionsMet = false end
+      end
+    end
+  end
+  if not glob.release and conditionsMet then game.player.print(serpent.block(message)) end
 end

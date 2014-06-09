@@ -1,7 +1,9 @@
 function resources()
   local recipe={}
   for _, item in pairs (data.raw.resource) do 
-    --table.insert(recipe, {item.name, 1}) --disabled until DyTech update
+    if item.category ~= "basic-fluid" then
+      table.insert(recipe, {item.name, 1})
+    end
   end
   table.insert(recipe, {"BMdynamite-bundle", 1})
   table.insert(recipe, {"steel-plate", 10})
@@ -13,8 +15,9 @@ data:extend({
   {
       type = "recipe",
       name = "BMdynamite",
+
       energy_required = 10,
-      ingredients = {{"coal", 10}, {"electronic-circuit", 2}, {"iron-gear-wheel", 3}, {"flame-thrower-ammo", 1}},
+      ingredients = {{"explosives", 10}, {"electronic-circuit", 2}, {"iron-gear-wheel", 3}},
       result = "BMdynamite",
       enabled = "false",
       result_count = 1

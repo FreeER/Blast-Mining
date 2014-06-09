@@ -3,7 +3,7 @@ data:extend({
     type = "technology",
     name = "blast-mining",
     icon = "__blast-mining__/graphics/technology/dynamite-tech.png",
-    prerequisites = {"explosives", "flame-thrower"},
+    prerequisites = {"explosives"},
     effects =
       {
         {
@@ -50,7 +50,7 @@ data:extend({
     type = "technology",
     name = "blast-mining-3",
     icon = "__blast-mining__/graphics/technology/quantum-explosion.png",
-    prerequisites = {"blast-mining-2", "steel-processing"},
+    prerequisites = {"blast-mining-2"},
     effects =
       {
         {
@@ -74,7 +74,7 @@ data:extend({
   },
 })
 
-if data.raw.item["dna"] then
+if data.raw.fluid["dna"] then
   data:extend({
     {
     type = "technology",

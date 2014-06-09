@@ -8,7 +8,7 @@ data:extend({
     flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
     max_health = 5,
     emissions_per_tick = 20,
-    collision_box = {{-0.2, -0.2}, {0.2, 0.2}},
+    collision_box = {{-0.5, -0.5}, {0.5, 0.5}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     inventory_size = 0,
     picture =
@@ -27,7 +27,7 @@ data:extend({
     flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
     max_health = 30,
     emissions_per_tick = 100,
-    collision_box = {{-0.2, -0.2}, {0.2, 0.2}},
+    collision_box = {{-0.5, -0.5}, {0.5, 0.5}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     inventory_size = 0,
     picture =
@@ -45,7 +45,7 @@ data:extend({
     icon = "__blast-mining__/graphics/icons/quantum-tnt.png",
     flags = {"placeable-player", "placeable-enemy", "player-creation", "placeable-off-grid"},
     max_health = 30,
-    collision_box = {{-0.2, -0.2}, {0.2, 0.2}},
+    collision_box = {{-0.5, -0.5}, {0.5, 0.5}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     inventory_size = 0,
     picture =
@@ -78,7 +78,7 @@ data:extend({
   sound =
     {
       {
-        filename = "__base__/sound/huge-explosion.wav",
+        filename = "__base__/sound/huge-explosion.ogg",
         volume = 0.25
       }
     }
@@ -105,7 +105,7 @@ data:extend({
     sound =
     {
       {
-        filename = "__base__/sound/huge-explosion.wav",
+        filename = "__base__/sound/huge-explosion.ogg",
         volume = 1.25
       }
     }

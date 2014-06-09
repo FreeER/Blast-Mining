@@ -1,5 +1,5 @@
 --dna mod items
-if data.raw.item["dna"] then
+if data.raw.fluid["dna"] then
   data:extend({
     {
       type = "item",
@@ -7,6 +7,7 @@ if data.raw.item["dna"] then
       place_result = "quantum-dna-bomb",
       icon = "__blast-mining__/graphics/icons/quantum-bomb.png",
       flags = {"goes-to-quickbar"},
+      subgroup = "extraction-machine",
       group = "combat",
       order = "a-a",
       stack_size = 10
@@ -33,7 +34,8 @@ if data.raw.item["dna"] then
       type = "recipe",
       name = "quantum-dna-bomb",
       energy_required = 10,
-      ingredients = {{"quantum-tnt", 1}, {"dna", 10}, {"copper-cable", 10}}, --Up dna to 20 maybe?
+      ingredients = {{"quantum-tnt", 1}, {type="fluid", name="dna", amount=20}, {"copper-cable", 10}},
+      category = "crafting-with-fluid",
       result = "quantum-dna-bomb",
       enabled = "false",
       result_count = 1
