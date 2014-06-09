@@ -10,3 +10,7 @@
 
 0.1.3
 	Separated DNA into separate mod
+
+0.1.4
+    Updated for 0.10.0 and to use fluid dna
+    Prevented ghosts from appearing for dynamite (as wel as quantum) because it doesn't make sense to replace them ;)

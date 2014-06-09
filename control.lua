@@ -5,6 +5,7 @@ game.oninit(function()
   glob.dynamite = {}
   glob.resources = {}
   glob.dna = {}
+  glob.ghosts = {}
   glob.release = false -- boolean used for easily testing mod during developement, false gives free items oninit and debug statements
   if not glob.release and game.player.character then
     game.player.character.insert{name="BMdynamite", count=10}
@@ -15,6 +16,7 @@ game.oninit(function()
 end)
 
 game.onload(function()
+  glob.ghosts = glob.ghosts or {}
   glob.resources = {}
   for k, entity in pairs(game.entityprototypes) do
     if entity.type == "resource" and game.itemprototypes[entity.name] and game.itemprototypes[entity.name].type ~= "fluid" then
@@ -32,6 +34,11 @@ game.onevent(defines.events.onbuiltentity, function(event)
 end)
 
 game.onevent(defines.events.ontick, function(event)
+  for i, ghost in ipairs(glob.ghosts) do --destroy dynamite ghosts
+    for _, g in pairs(game.findentitiesfiltered{type="ghost", area=getboundingbox(ghost, 1)}) do
+      g.destroy()
+    end
+  end
   for _, dynamite in ipairs(glob.dynamite) do
     if dynamite.entity.valid and not (event.tick%60==1) then 
       if (dynamite.entity.name == "BMdynamite") and (event.tick - dynamite.tick > 120) and dynamite.entity.valid then dynamite.entity.die()
@@ -47,6 +54,7 @@ end)
 
 game.onevent(defines.events.onentitydied, function(event)
   if (event.entity.name == "BMdynamite") or (event.entity.name == "BMdynamite-bundle") or (event.entity.name == "quantum-tnt") then
+    table.insert(glob.ghosts, event.entity.position)
     local area --area that will be clear/damaged by explosion
     if event.entity.name == "BMdynamite" then area=1
     elseif event.entity.name == "BMdynamite-bundle" then area=5
@@ -80,6 +88,7 @@ game.onevent(defines.events.onentitydied, function(event)
   end -- end blast mining code
   
   if (event.entity.name == "quantum-dna-bomb") then
+    table.insert(glob.ghosts, event.entity.position)
     local area=10 --incase I add other bombs, but I don't really think I'll need to lol
     causedamage(event.entity, area, game.forces.enemy)
   end-- end quantum dna bomb code
